@@ -1,14 +1,179 @@
 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<HTML>
+<HEAD>
+<TITLE>Treatment Dictionary</TITLE>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">
+
+<SCRIPT LANGUAGE="JavaScript">
+var treatments = [];
+
+function escapeHTML(text)
+{
+    return String(text)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+}
+
+function loadTreatments()
+{
+    var output = document.getElementById("results");
+
+    output.innerHTML = "Loading treatments...";
+
+    fetch("treatments.txt")
+    .then(function(response)
+    {
+        if (!response.ok)
+            throw new Error("Could not load treatments.txt");
+
+        return response.text();
+    })
+    .then(function(data)
+    {
+        treatments = [];
+        var blocks = data.split(/^\s*---+\s*$/m);
+
+        for (var i = 0; i < blocks.length; i++)
+        {
+            var lines = blocks[i].split(/\r?\n/);
+            var name = "";
+            var description = [];
+            var readingDescription = false;
+
+            for (var j = 0; j < lines.length; j++)
+            {
+                var line = lines[j];
+
+                if (/^\s*NAME:/i.test(line))
+                {
+                    name = line.replace(/^\s*NAME:\s*/i, "").trim();
+                    readingDescription = false;
+                }
+                else if (/^\s*DESCRIPTION:/i.test(line))
+                {
+                    description.push(
+                        line.replace(/^\s*DESCRIPTION:\s*/i, "")
+                    );
+                    readingDescription = true;
+                }
+                else if (readingDescription)
+                {
+                    description.push(line);
+                }
+            }
+
+            if (name !== "")
+            {
+                treatments.push({
+                    name: name,
+                    description: description.join("\n").trim()
+                });
+            }
+        }
+
+        searchTreatments();
+    })
+    .catch(function(error)
+    {
+        output.innerHTML =
+            "<P><B>Unable to load treatments.txt.</B></P>" +
+            "<P>Make sure the file exists in the same GitHub repository " +
+            "and that GitHub Pages has published it.</P>";
+    });
+}
+
+function searchTreatments()
+{
+    var query = document.getElementById("search").value.toLowerCase();
+    var output = document.getElementById("results");
+    var html = "";
+    var count = 0;
+
+    for (var i = 0; i < treatments.length; i++)
+    {
+        var name = treatments[i].name;
+        var description = treatments[i].description;
+
+        if (name.toLowerCase().indexOf(query) >= 0 ||
+            description.toLowerCase().indexOf(query) >= 0)
+        {
+            html += "<TABLE BORDER=1 WIDTH='100%' CELLPADDING=6>";
+            html += "<TR BGCOLOR='#CCCCFF'><TD><B>";
+            html += escapeHTML(name);
+            html += "</B></TD></TR><TR><TD>";
+            html += escapeHTML(description).replace(/\n/g, "<BR>");
+            html += "</TD></TR></TABLE><BR>";
+
+            count++;
+        }
+    }
+
+    if (count === 0)
+        html = "<P>No treatments found.</P>";
+
+    output.innerHTML = html;
+    document.getElementById("count").innerHTML =
+        count + " treatment(s) found.";
+}
+
+function resetSearch()
+{
+    document.getElementById("search").value = "";
+    searchTreatments();
+}
+</SCRIPT>
+</HEAD>
+
+<BODY BGCOLOR="#EEEEEE" TEXT="#000000" LINK="#0000FF" VLINK="#800080">
+
+<CENTER>
+<TABLE BORDER=2 WIDTH="85%" CELLPADDING=10 BGCOLOR="#FFFFFF">
+
+<TR BGCOLOR="#000080">
+<TD ALIGN="CENTER">
+<FONT COLOR="#FFFFFF" SIZE="+2">
+<B>TREATMENT DICTIONARY</B>
+</FONT>
+</TD>
+</TR>
+
+<TR>
+<TD>
+
+<CENTER>
+<FONT COLOR="#CC0000">
+<B>WARNING: The treatments are pretty weird.
+Proceed with caution!</B>
+</FONT>
+</CENTER>
+
 <HR>
 
-<B>Add treatments:</B>
-<P>Edit treatments.txt in Notepad, then load it here.</P>
+<B>Search treatments:</B><BR>
 
-<INPUT TYPE="FILE" ID="file" ACCEPT=".txt,text/plain">
-<INPUT TYPE="BUTTON" VALUE="Load File"
-ONCLICK="loadFile()">
+<INPUT TYPE="TEXT" ID="search" SIZE="35"
+ONKEYUP="searchTreatments()">
 
-<P ID="status"></P>
+<INPUT TYPE="BUTTON" VALUE="Search"
+ONCLICK="searchTreatments()">
+
+<INPUT TYPE="BUTTON" VALUE="Show All"
+ONCLICK="resetSearch()">
+
+<P ID="count">Loading...</P>
+
+<HR>
+
+<DIV ID="results"></DIV>
+
+<HR>
+
+<FONT SIZE="-1">
+Treatment Dictionary
+</FONT>
 
 </TD>
 </TR>
@@ -16,28 +181,6 @@ ONCLICK="loadFile()">
 </CENTER>
 
 <SCRIPT LANGUAGE="JavaScript">
-function loadFile()
-{
-    var file = document.getElementById("file").files[0];
-
-    if (!file) return;
-
-    var reader = new FileReader();
-
-    reader.onload = function(e)
-    {
-        document.getElementById("treatmentData").value =
-            e.target.result;
-
-        loadTreatments();
-
-        document.getElementById("status").innerHTML =
-            "Treatments loaded.";
-    };
-
-    reader.readAsText(file);
-}
-
 loadTreatments();
 </SCRIPT>
 
