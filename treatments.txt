@@ -1,13 +1,74 @@
 
-NAME: Test
-DESCRIPTION: This is the sample treatment.
+NAME: Tais Treatment
+DESCRIPTION: This is were you "piss yogurt" and someone else eats it up.
 
 ---
 
-NAME: Example Treatment
-DESCRIPTION: Put the description of the treatment here.
+NAME: Art the Clown Treatment
+DESCRIPTION: First kill someone and then cut them in half (top to bottom), strip them naked and do whatever.
 
 ---
 
-NAME: Another Treatment
-DESCRIPTION: Write whatever information belongs to this entry.
+NAME: The Family Dog Treatment
+DESCRIPTION: Beat it up.
+
+---
+
+NAME: Tim Treatment
+DESCRIPTION: Skin someone alive and eat their entire family.
+
+---
+
+NAME: Toilet Treatment
+DESCRIPTION: i forgot.
+
+---
+
+NAME: Rosenthal Treatment
+DESCRIPTION: Steal someone's vaceline, then use it on your ear and then goon with it. Afterwards, issue people Saturday & Sunday detention at your house, in your basement.
+
+---
+
+NAME: Obese Sonic Treatment
+DESCRIPTION: Eat someone's shit.
+
+---
+
+NAME: Salem Treatment
+DESCRIPTION: Reenact the Salem Witch trials.
+
+---
+
+NAME: Abandoned Building Treatment
+DESCRIPTION: On a half-day, go to an abandoned building and pelt rocks at it. Get the police called on you afterwards and cry like a dog.
+
+---
+
+NAME: Simon Treatment
+DESCRIPTION: Get *IT* bit off.
+
+---
+
+NAME: Chobani Treatment
+DESCRIPTION: Use it as a lubricant.
+
+---
+
+NAME: Yellow Fever Theory
+DESCRIPTION: When shawty says she got "Yellow Fever", tell her she is "buggin'".
+
+---
+
+NAME: Cancer Theory
+DESCRIPTION: A theory if someone has cancer or not.
+
+---
+
+NAME: Snyder Treatment
+DESCRIPTION: Live in an abandoned mineshaft.
+
+---
+
+NAME: Femboy Treatment
+DESCRIPTION: Use ChatGPT strictly to turn someone into a femboy.
+
