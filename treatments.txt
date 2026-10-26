@@ -1,0 +1,13 @@
+
+NAME: Test
+DESCRIPTION: This is the sample treatment.
+
+---
+
+NAME: Example Treatment
+DESCRIPTION: Put the description of the treatment here.
+
+---
+
+NAME: Another Treatment
+DESCRIPTION: Write whatever information belongs to this entry.
