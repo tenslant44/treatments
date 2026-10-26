@@ -1,0 +1,45 @@
+
+<HR>
+
+<B>Add treatments:</B>
+<P>Edit treatments.txt in Notepad, then load it here.</P>
+
+<INPUT TYPE="FILE" ID="file" ACCEPT=".txt,text/plain">
+<INPUT TYPE="BUTTON" VALUE="Load File"
+ONCLICK="loadFile()">
+
+<P ID="status"></P>
+
+</TD>
+</TR>
+</TABLE>
+</CENTER>
+
+<SCRIPT LANGUAGE="JavaScript">
+function loadFile()
+{
+    var file = document.getElementById("file").files[0];
+
+    if (!file) return;
+
+    var reader = new FileReader();
+
+    reader.onload = function(e)
+    {
+        document.getElementById("treatmentData").value =
+            e.target.result;
+
+        loadTreatments();
+
+        document.getElementById("status").innerHTML =
+            "Treatments loaded.";
+    };
+
+    reader.readAsText(file);
+}
+
+loadTreatments();
+</SCRIPT>
+
+</BODY>
+</HTML>
